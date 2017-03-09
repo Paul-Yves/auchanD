@@ -5,7 +5,7 @@ class Cart:
         self.items = jsonCart["items"]
         self.errorList = []
 
-    def compute_total(self, catalog, delivery_fees):
+    def compute_total(self, catalog, delivery_fees=None):
         self.errorList = []
         total = 0
         for item_dict in self.items:
@@ -24,10 +24,10 @@ class Cart:
         fee = 0
         for fee_dict in delivery_fees:
             volumeInterval = fee_dict["eligible_transaction_volume"]
-            if(self.total<volumeInterval["max_price"] and self.total>=volumeInterval["min_price"]):
+            if(self.total>=volumeInterval["min_price"] and (volumeInterval["max_price"]==None or self.total<volumeInterval["max_price"])):
                 fee = fee_dict["price"]
 
-        self.total = self.total - fee
+        self.total = self.total + fee
 
     def generate_output_dict(self):
         """
