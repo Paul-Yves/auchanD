@@ -2,6 +2,11 @@ import unittest
 from CartManager import retrieve_document_from_file, create_carts, provide_count_in_file, generate_output_count
 
 class TestTechnique(unittest.TestCase):
+    """
+        We are not truly testing (by code) that we have expected output but that the parsed dict are corresponding
+        Made under the assumption that it should be read by another app, not by human reader 
+        (but still formatting should be similar and can be checked visually comparing output.json and test_result.json)
+    """
 
     def test_level1(self):
         document = retrieve_document_from_file("level1/data.json")
